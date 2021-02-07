@@ -35,21 +35,22 @@
         <div class="input-group mb-3">
             <input id="searchInput" type="text" class="form-control" placeholder="Search For Meal ...">
             <div class="input-group-append">
-                <button id="searchMeal-btn" type="button" class="btn btn-danger">Search</button>
+                <button onclick="searchMeal()" type="button" class="btn btn-danger">Search</button>
             </div>
         </div>
     </form>
+    <section id='ingredient'>
+        <h1>Ingredients Details</h1>
+    </section>
+    <h2 id="error-message"></h2>
     <main id="recipes">
 
     </main>
-    <section id="ingredient">
-
-    </section>
 
 
 
     <!-- custom js link -->
-    <script src="hungry.js"></script>
+    <script src="app.js"></script>
     <!-- bootstrap js link -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </body>

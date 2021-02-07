@@ -1,4 +1,5 @@
 body {
+    margin: 15px;
     background-color: rgb(236, 246, 243);
 }
 
@@ -12,4 +13,22 @@ body {
 
 .image img {
     width: 300px;
+}
+
+#ingredient {
+    width: 300px;
+    height: 150px;
+    font-weight: 900px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(250, 204, 170);
+    border: 1px solid rgb(255, 0, 149);
+    overflow: scroll;
+    position: fixed;
+    text-align: center;
+    display: none;
+}
+
+#error-message {
+    text-align: center;
+    color: red;
 }
