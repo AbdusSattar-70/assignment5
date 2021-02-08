@@ -16,7 +16,7 @@ const displayRecipes = recipes => {
     recipes.forEach(recipe => {
         const main = document.getElementById('recipes');
         const div = document.createElement('div');
-        div.innerHTML = `<div onClick = "getIngredients()" class ="image-title" >
+        div.innerHTML = `<div onClick = "getIngredients('${recipe.strMeal}')" class ="recipeThumb" >
         <img src = "${recipe.strMealThumb}" >
         <h6>${recipe.strMeal}</h6>
         </div>`
@@ -34,14 +34,12 @@ const getError = error => {
 
 
 // ingredients or details of meal event handler
-const getIngredients = () => {
-    const getTexts = document.querySelectorAll('.image-title h6');
-    getTexts.forEach(getText => {
-        const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${getText.innerText}`
-        fetch(url)
-            .then(res => res.json())
-            .then(data => displayIngredients(data.meals))
-    });
+const getIngredients = name => {
+    const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displayIngredients(data.meals))
+
     document.getElementById('ingredient').style.display = 'block'
 }
 
