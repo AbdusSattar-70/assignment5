@@ -1,11 +1,11 @@
 // search area event handler
 const searchMeal = () => {
     const searchText = document.getElementById("searchInput").value;
-    const url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchText}`
+    const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`
     fetch(url)
         .then(res => res.json())
         .then(data => displayRecipes(data.meals))
-        .catch(error => getError("An Error - Please Try another key-Words"));
+        .catch(error => getError("For Search By This Word Don't Get Nothing - Please Try another key-Words"));
     document.getElementById('recipes').innerText = "";
     document.getElementById("searchInput").value = "";
     document.getElementById("error-message").innerText = "";
@@ -14,51 +14,60 @@ const searchMeal = () => {
 
 const displayRecipes = recipes => {
     recipes.forEach(recipe => {
-        const h1 = document.createElement('h1');
-        h1.className = 'mealName'
-        const div1 = document.createElement('div');
-        h1.innerHTML = recipe.strMeal
-        div1.className = 'image';
-        div1.innerHTML = `<img src = "${recipe.strMealThumb}" onClick = "getIngredients()">`
         const main = document.getElementById('recipes');
-        div1.appendChild(h1);
-        main.appendChild(div1);
+        const div = document.createElement('div');
+        div.innerHTML = `<div onClick = "getIngredients()" class ="image-title" >
+        <img src = "${recipe.strMealThumb}" >
+        <h6>${recipe.strMeal}</h6>
+        </div>`
+        main.appendChild(div);
+        document.getElementById('ingredient').style.display = "none";
     });
+}
 
 
+// error message handler
+const getError = error => {
+    const errorTag = document.getElementById("error-message");
+    errorTag.innerText = error;
 }
 
 
 // ingredients or details of meal event handler
 const getIngredients = () => {
-    const getTexts = document.getElementsByClassName('mealName');
-    for (let i = 0; i < getTexts.length; i++) {
-        const getText = getTexts[1];
-        const url = `https://www.themealdb.com/api/json/v1/1/list.php?i=${getTexts}`
+    const getTexts = document.querySelectorAll('.image-title h6');
+    getTexts.forEach(getText => {
+        const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${getText.innerText}`
         fetch(url)
             .then(res => res.json())
             .then(data => displayIngredients(data.meals))
-        document.getElementById('ingredient').style.display = 'block'
-    }
-
+    });
+    document.getElementById('ingredient').style.display = 'block'
 }
 
 
 
 const displayIngredients = ingredients => {
-        ingredients.forEach(ingredient => {
-            const section = document.getElementById('ingredient');
-            const div = document.createElement('div')
-            div.innerHTML = `
-        <ul>
-        <li>${ingredient.strIngredient}</li>
-        <li>${ingredient.strDescription}</li>
-        </ul>`
-            section.appendChild(div);
-        });
-    }
-    // error message handler
-const getError = error => {
-    const errorTag = document.getElementById("error-message");
-    errorTag.innerText = error;
+    ingredients.forEach(ingredient => {
+        const section = document.getElementById('ingredient');
+        section.innerHTML = `
+        <ol>
+        <h4>${'Ingredients Details'}</h4>
+        <img src = "${ingredient.strMealThumb}" id ="image-ingredient">
+        <h6>${ingredient.strMeal}</h6>
+        <li><b>${ingredient.strIngredient1}:</b> ${ingredient.strMeasure1}</li>
+        <li><b>${ingredient.strIngredient2}:</b> ${ingredient.strMeasure2}</li>
+        <li><b>${ingredient.strIngredient3}:</b> ${ingredient.strMeasure3}</li>
+        <li><b>${ingredient.strIngredient4}:</b> ${ingredient.strMeasure4}</li>
+        <li><b>${ingredient.strIngredient5}:</b> ${ingredient.strMeasure5}</li>
+        <li><b>${ingredient.strIngredient6}:</b> ${ingredient.strMeasure6}</li>
+        <li><b>${ingredient.strIngredient7}:</b> ${ingredient.strMeasure7}</li>
+        <li><b>${ingredient.strIngredient8}:</b> ${ingredient.strMeasure8}</li>
+        <li><b>${ingredient.strIngredient9}:</b> ${ingredient.strMeasure9}</li>
+        <li><b>${ingredient.strIngredient10}:</b> ${ingredient.strMeasure10}</li>
+        <li><b>${ingredient.strIngredient11}:</b> ${ingredient.strMeasure11}</li>
+        <li><b>${ingredient.strIngredient12}:</b> ${ingredient.strMeasure12}</li>
+        </ol>`
+    });
+
 }
